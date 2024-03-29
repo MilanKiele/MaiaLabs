@@ -1,9 +1,5 @@
 """This helper provides function for basic component operations."""
 
-# cSpell:ignore pgrep
-# cSpell:ignore tasklist
-# cSpell:ignore IMAGENAME
-
 import subprocess
 import platform
 import sys

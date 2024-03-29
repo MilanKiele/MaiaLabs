@@ -1,0 +1,3 @@
+# Never share these:
+.env
+.env_local

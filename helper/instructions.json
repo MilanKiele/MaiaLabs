@@ -130,10 +130,10 @@
         "run": [
             {
                 "linux": [
-                    "python test.py"
+                    "venv/bin/python test.py"
                 ],
                 "windows": [
-                    "python test.py"
+                    "venv\\Scripts\\python test.py"
                 ]
             }
         ],
@@ -141,18 +141,12 @@
         "install": [
             {
                 "linux": [
-                    "python -m venv venv",
-                    "pip install --upgrade pip",
-                    "source venv/bin/activate",
-                    "pip install -r requirements.txt",
-                    "deactivate"
+                    "venv/bin/python -m venv venv",
+                    "venv/bin/pip install -r requirements.txt"
                 ],
                 "windows": [
-                    "python -m venv venv",
-                    "pip install --upgrade pip",
-                    "venv\\Scripts\\activate",
-                    "pip install -r requirements.txt",
-                    "deactivate"
+                    "venv\\Scripts\\python -m venv venv",
+                    "venv\\Scripts\\pip install -r requirements.txt"
                 ]
             }
         ],
@@ -160,26 +154,22 @@
         "start": [
             {
                 "linux": [
-                    "python test.py"
+                    "venv/bin/python test.py"
                 ],
                 "windows": [
-                    "python test.py"
+                    "venv\\Scripts\\python test.py"
                 ]
             }
         ],
         "update": [
             {
                 "linux": [
-                    "source venv/bin/activate",
-                    "pip freeze > requirements.txt",
-                    "pip install --upgrade pip",
-                    "deactivate"
+                    "venv/bin/pip freeze > requirements.txt",
+                    "venv/bin/pip install --upgrade pip"
                 ],
                 "windows": [
-                    "venv\\Scripts\\activate",
-                    "pip freeze > requirements.txt",
-                    "pip install --upgrade pip",
-                    "deactivate"
+                    "venv\\Scripts\\pip freeze > requirements.txt",
+                    "venv\\Scripts\\pip install --upgrade pip"
                 ]
             }
         ]

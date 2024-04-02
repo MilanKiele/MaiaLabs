@@ -41,11 +41,11 @@ def main_menu(components):
             else:
                 print("Invalid choice. Please enter a number between 1 and 7.")
 
-        except (FileNotFoundError, subprocess.CalledProcessError) as e:
-            print(f"Error: {e}")
+        except (FileNotFoundError, subprocess.CalledProcessError) as error:
+            print(f"Error: {error}")
 
-        except Exception as e:  # pylint: disable=broad-except
-            print(f"An unexpected error occurred: {e}")
+        except Exception as er:  # pylint: disable=broad-except
+            print(f"An unexpected error occurred: {er}")
 
 
 def execute_menu_option(components, option):
@@ -58,27 +58,17 @@ def execute_menu_option(components, option):
 def execute_component_command(components, component, option):
     """Executes commands for a component."""
     cwd = os.path.abspath(components[component]["directory"])
-    if platform.system().lower() == "windows":
-        # Write commands to a temporary batch script
-        script_path = os.path.join(cwd, "temp_script.bat")
-        with open(script_path, "w", encoding="utf-8") as script_file:
-            for command in components[component][option][0]["windows"]:
-                script_file.write(command + "\n")
-            script_file.write("pause")
-        # Open a new terminal window and execute the batch script
-        subprocess.Popen(["start", "cmd", "/K", script_path], cwd=cwd, shell=True)
-    else:
-        # For non-Windows platforms, execute commands sequentially in a single terminal window
-        all_commands = "; ".join(components[component][option][0]["linux"])
-        subprocess.Popen(
-            [
-                "gnome-terminal",
-                "--",
-                "bash",
-                "-c",
-                f"source venv/bin/activate && {all_commands}; read -p 'Press Enter to continue'",
-            ]
-        )
+    commands = components[component][option][0][platform.system().lower()]
+
+    # Concatenate all commands into a single string
+    all_commands = " && ".join(commands)
+
+    if platform.system() == "Windows":
+        # On Windows, use 'start cmd /k' to keep the terminal window open after execution
+        subprocess.Popen(f'start cmd /k "{all_commands}"', cwd=cwd, shell=True)
+    elif platform.system() == "Linux":
+        # On Linux, use 'x-terminal-emulator -e' to open a new terminal window
+        subprocess.Popen(["x-terminal-emulator", "-e", all_commands], cwd=cwd)
 
 
 def ask_yes_no(question):
@@ -95,6 +85,12 @@ def ask_yes_no(question):
 
 if __name__ == "__main__":
     with open("helper/instructions.json", encoding="utf-8") as f:
-        components_instructions = json.load(f)
+        try:
+            components_instructions = json.load(f)
+        except json.JSONDecodeError as e:
+            print(f"JSON decoding error: {e}")
+            # Print the line and column where the error occurred
+            print(f"Error occurred at line {e.lineno}, column {e.colno}.")
+            sys.exit(1)
 
     main_menu(components_instructions)

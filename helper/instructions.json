@@ -26,58 +26,6 @@
     "web-test": {
         "directory": "web-test/",
         "run": [
-            "python test.py"
-        ],
-        "build": [],
-        "install": [
-            {
-                "command": [
-                    "python",
-                    "-m",
-                    "venv",
-                    "myenv"
-                ]
-            },
-            {
-                "command": [
-                    "python",
-                    "-m",
-                    "venv",
-                    "myenv"
-                ],
-                "condition": "linux"
-            },
-            {
-                "command": [
-                    "myenv\\Scripts\\activate"
-                ]
-            },
-            {
-                "command": [
-                    "source",
-                    "myenv/bin/activate"
-                ],
-                "condition": "linux"
-            },
-            {
-                "command": [
-                    "pip",
-                    "install",
-                    "-r",
-                    "requirements.txt"
-                ]
-            }
-        ],
-        "test": [
-            "pytest"
-        ],
-        "deploy": [
-            "test.py"
-        ]
-    },
-    "client-test": {
-        "directory": "client-test/",
-        "run": [
             "npm run dev"
         ],
         "build": [

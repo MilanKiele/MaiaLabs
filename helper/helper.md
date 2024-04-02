@@ -13,8 +13,16 @@ Recommend to install everything when starting to develop multiple backend compon
 1. python helper.py
 2. select the options from menu
 
-**1. Start Components** - Dev & Start
-**2. Build Components** - Building
-**3. Install Components** - Requirements & Dependencies
-**4. Test Components** - Testing
-**5. Deploy Components** - Build and Start
+**Menu:**
+
+```bash
+1. Start Components - Dev & Start
+
+2. Build Components - Building
+
+3. Install Components - Requirements & Dependencies
+
+4. Test Components - Testing
+
+5. Deploy Components - Build and Start
+```

@@ -2,32 +2,61 @@
     "client": {
         "directory": "client/",
         "run": [
-            "npm run dev"
+            {
+                "linux": [
+                    "npm run dev"
+                ],
+                "windows": [
+                    "npm run dev"
+                ]
+            }
         ],
         "build": [
             {
-                "command": [
+                "linux": [
+                    "npm run build"
+                ],
+                "windows": [
                     "npm run build"
                 ]
             }
         ],
         "install": [
             {
-                "command": [
+                "linux": [
+                    "npm install"
+                ],
+                "windows": [
                     "npm install"
                 ]
             }
         ],
         "test": [
-            "npm test"
+            {
+                "linux": [
+                    "npm test"
+                ],
+                "windows": [
+                    "npm test"
+                ]
+            }
         ],
-        "deploy": [
-            "npm run build",
-            "npm run start"
+        "start": [
+            {
+                "linux": [
+                    "npm run start"
+                ],
+                "windows": [
+                    "npm run start"
+                ]
+            }
         ],
         "update": [
             {
-                "command": [
+                "linux": [
+                    "npm update"
+                ],
+                "windows": [
                     "npm update"
                 ]
             }
@@ -36,32 +65,61 @@
     "web-test": {
         "directory": "web-test/",
         "run": [
-            "npm run dev"
+            {
+                "linux": [
+                    "npm run dev"
+                ],
+                "windows": [
+                    "npm run dev"
+                ]
+            }
         ],
         "build": [
             {
-                "command": [
+                "linux": [
+                    "npm run build"
+                ],
+                "windows": [
                     "npm run build"
                 ]
             }
         ],
         "install": [
             {
-                "command": [
+                "linux": [
+                    "npm install"
+                ],
+                "windows": [
                     "npm install"
                 ]
             }
         ],
         "test": [
-            "npm test"
+            {
+                "linux": [
+                    "npm test"
+                ],
+                "windows": [
+                    "npm test"
+                ]
+            }
         ],
-        "deploy": [
-            "npm run build",
-            "npm run start"
+        "start": [
+            {
+                "linux": [
+                    "npm run start"
+                ],
+                "windows": [
+                    "npm run start"
+                ]
+            }
         ],
         "update": [
             {
-                "command": [
+                "linux": [
+                    "npm update"
+                ],
+                "windows": [
                     "npm update"
                 ]
             }
@@ -70,72 +128,57 @@
     "python-test": {
         "directory": "python-test/",
         "run": [
-            "python test.py"
+            {
+                "linux": [
+                    "python test.py"
+                ],
+                "windows": [
+                    "python test.py"
+                ]
+            }
         ],
         "build": [],
         "install": [
             {
-                "command": [
-                    "python -m venv venv"
-                ]
-            },
-            {
-                "command": [
-                    "venv\\Scripts\\activate"
+                "linux": [
+                    "python -m venv venv",
+                    "pip install --upgrade pip",
+                    "source venv/bin/activate",
+                    "pip install -r requirements.txt",
+                    "deactivate"
                 ],
-                "platform": "windows"
-            },
-            {
-                "command": [
-                    "source venv/bin/activate"
-                ],
-                "platform": "linux"
-            },
-            {
-                "command": [
-                    "pip install --upgrade pip"
-                ]
-            },
-            {
-                "command": [
-                    "pip install -r requirements.txt"
-                ]
-            },
-            {
-                "command": [
+                "windows": [
+                    "python -m venv venv",
+                    "pip install --upgrade pip",
+                    "venv\\Scripts\\activate",
+                    "pip install -r requirements.txt",
                     "deactivate"
                 ]
             }
         ],
         "test": [],
-        "deploy": [
-            "python test.py"
+        "start": [
+            {
+                "linux": [
+                    "python test.py"
+                ],
+                "windows": [
+                    "python test.py"
+                ]
+            }
         ],
         "update": [
             {
-                "command": [
-                    "venv\\Scripts\\activate"
+                "linux": [
+                    "source venv/bin/activate",
+                    "pip freeze > requirements.txt",
+                    "pip install --upgrade pip",
+                    "deactivate"
                 ],
-                "platform": "windows"
-            },
-            {
-                "command": [
-                    "source venv/bin/activate"
-                ],
-                "platform": "linux"
-            },
-            {
-                "command": [
-                    "pip freeze > requirements.txt"
-                ]
-            },
-            {
-                "command": [
-                    "pip install --upgrade pip"
-                ]
-            },
-            {
-                "command": [
+                "windows": [
+                    "venv\\Scripts\\activate",
+                    "pip freeze > requirements.txt",
+                    "pip install --upgrade pip",
                     "deactivate"
                 ]
             }

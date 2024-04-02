@@ -6,6 +6,10 @@ The `helper.py` module provides functions for basic component operations.
 
 - Python 3.x installed on your system.
 
+## Updating
+
+- Add functionalities inside instructions.json.
+
 ## Usage
 
 Recommend to install everything when starting to develop multiple backend components.

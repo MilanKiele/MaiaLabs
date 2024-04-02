@@ -5,6 +5,7 @@ import platform
 import sys
 import json
 import os
+import time
 
 
 class Colors:
@@ -121,6 +122,8 @@ def main_menu():
                 sys.exit()
             else:
                 print("Invalid choice. Please enter a number between 1 and 6.")
+
+            time.sleep(3)
         except (FileNotFoundError, subprocess.CalledProcessError) as e:
             print(Colors.RED + f"Error: {e}" + Colors.END)
 

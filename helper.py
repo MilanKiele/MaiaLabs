@@ -123,9 +123,11 @@ def main_menu():
             else:
                 print("Invalid choice. Please enter a number between 1 and 6.")
 
-            time.sleep(3)
         except (FileNotFoundError, subprocess.CalledProcessError) as e:
             print(Colors.RED + f"Error: {e}" + Colors.END)
+
+    # Add message delay
+    time.sleep(3)
 
 
 def start_components():
@@ -159,13 +161,30 @@ def build_components():
             continue
 
         if ask_yes_no(f"Build {component_name}?"):
-            if component["build"]:
-                subprocess.run(
-                    component["build"],
-                    shell=True,
-                    cwd=component["directory"],
-                    check=True,
-                )
+            try:
+                if component["build"]:
+                    print(f"Building {component_name}...")
+                    build_commands = component["build"][0].get("command", [])
+                    if build_commands:
+                        for build_command in build_commands:
+                            print(f"Running command: {build_command}")
+                            subprocess.run(
+                                build_command,
+                                shell=True,
+                                cwd=component["directory"],
+                                check=True,
+                            )
+                        print(f"{component_name} installed successfully.")
+                    else:
+                        print(
+                            f"No installation commands specified for {component_name}. Skipping..."
+                        )
+                else:
+                    print(
+                        f"No installation commands specified for {component_name}. Skipping..."
+                    )
+            except subprocess.CalledProcessError as e:
+                print(Colors.RED + f"Error building {component_name}: {e}" + Colors.END)
 
 
 def install_components():
@@ -180,22 +199,32 @@ def install_components():
             continue
 
         if ask_yes_no(f"Install {component_name}?"):
-            if component["install"]:
-                if isinstance(component["install"], list):
-                    for install_command in component["install"]:
-                        subprocess.run(
-                            install_command,
-                            shell=True,
-                            cwd=component["directory"],
-                            check=True,
+            try:
+                if component["install"]:
+                    print(f"Installing {component_name}...")
+                    install_commands = component["install"][0].get("command", [])
+                    if install_commands:
+                        for install_command in install_commands:
+                            print(f"Running command: {install_command}")
+                            subprocess.run(
+                                install_command,
+                                shell=True,
+                                cwd=component["directory"],
+                                check=True,
+                            )
+                        print(f"{component_name} installed successfully.")
+                    else:
+                        print(
+                            f"No installation commands specified for {component_name}. Skipping..."
                         )
                 else:
-                    subprocess.run(
-                        component["install"],
-                        shell=True,
-                        cwd=component["directory"],
-                        check=True,
+                    print(
+                        f"No installation commands specified for {component_name}. Skipping..."
                     )
+            except subprocess.CalledProcessError as e:
+                print(
+                    Colors.RED + f"Error installing {component_name}: {e}" + Colors.END
+                )
 
 
 def test_components():

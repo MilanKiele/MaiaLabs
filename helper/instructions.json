@@ -1,0 +1,101 @@
+{
+    "client": {
+        "directory": "client/",
+        "run": [
+            "npm run dev"
+        ],
+        "build": [
+            "npm run build"
+        ],
+        "install": [
+            {
+                "command": [
+                    "npm",
+                    "install"
+                ]
+            }
+        ],
+        "test": [
+            "npm test"
+        ],
+        "deploy": [
+            "npm run build",
+            "npm run start"
+        ]
+    },
+    "web-test": {
+        "directory": "web-test/",
+        "run": [
+            "python test.py"
+        ],
+        "build": [],
+        "install": [
+            {
+                "command": [
+                    "python",
+                    "-m",
+                    "venv",
+                    "myenv"
+                ]
+            },
+            {
+                "command": [
+                    "python",
+                    "-m",
+                    "venv",
+                    "myenv"
+                ],
+                "condition": "linux"
+            },
+            {
+                "command": [
+                    "myenv\\Scripts\\activate"
+                ]
+            },
+            {
+                "command": [
+                    "source",
+                    "myenv/bin/activate"
+                ],
+                "condition": "linux"
+            },
+            {
+                "command": [
+                    "pip",
+                    "install",
+                    "-r",
+                    "requirements.txt"
+                ]
+            }
+        ],
+        "test": [
+            "pytest"
+        ],
+        "deploy": [
+            "test.py"
+        ]
+    },
+    "client-test": {
+        "directory": "client-test/",
+        "run": [
+            "npm run dev"
+        ],
+        "build": [
+            "npm run build"
+        ],
+        "install": [
+            {
+                "command": [
+                    "npm install"
+                ]
+            }
+        ],
+        "test": [
+            "npm test"
+        ],
+        "deploy": [
+            "npm run build",
+            "npm run start"
+        ]
+    }
+}

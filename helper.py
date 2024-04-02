@@ -5,7 +5,6 @@ import platform
 import sys
 import json
 import os
-import time
 
 
 class Colors:
@@ -82,9 +81,9 @@ def ask_yes_no(question):
     """Asks a yes/no question."""
     while True:
         response = input(question + " (yes/no): ").strip().lower()
-        if response in ["y", "yes", ""]:
+        if response in ["y", "yes"]:
             return True
-        elif response in ["n", "no"]:
+        elif response in ["n", "no", ""]:
             return False
         else:
             print("Please respond with 'yes', 'no', or leave the answer blank.")
@@ -99,35 +98,38 @@ def main_menu():
         print(Colors.BLUE + "1. Start Components")
         print("2. Build Components")
         print("3. Install Components")
-        print("4. Test Components")
-        print("5. Deploy Components")
-        print("6. Exit" + Colors.END)
+        print("4. Update Components")
+        print("5. Test Components")
+        print("6. Deploy Components")
+        print("7. Exit" + Colors.END)
         print("--------------------")
         print("")
-        choice = input("Enter your choice (1-6): ").strip().lower()
+        choice = input("Enter your choice (1-7): ").strip().lower()
 
         try:
-            if choice == "1" or choice == "":
+            if choice == "1":
                 start_components()
             elif choice == "2":
                 build_components()
             elif choice == "3":
                 install_components()
             elif choice == "4":
-                test_components()
+                update_components()
             elif choice == "5":
+                test_components()
+            elif choice == "6":
                 deploy_components()
-            elif choice == "6" or choice == "e":
+            elif choice == "7" or choice == "e":
                 print("Exiting...")
                 sys.exit()
             else:
-                print("Invalid choice. Please enter a number between 1 and 6.")
+                print("Invalid choice. Please enter a number between 1 and 7.")
 
         except (FileNotFoundError, subprocess.CalledProcessError) as e:
             print(Colors.RED + f"Error: {e}" + Colors.END)
 
-    # Add message delay
-    time.sleep(3)
+        except Exception as e:  # pylint: disable=broad-except
+            print(Colors.RED + f"An unexpected error occurred: {e}" + Colors.END)
 
 
 def start_components():
@@ -147,6 +149,61 @@ def start_components():
 
         if ask_yes_no(f"Start {component_name}?"):
             start_component(component["run"], component["directory"])
+
+
+def update_components():
+    """Updates all components."""
+    for component_name, component in components.items():
+        if not os.path.exists(component["directory"]):
+            print(
+                Colors.YELLOW
+                + f"Directory '{component['directory']}' does not exist. Skipping..."
+                + Colors.END
+            )
+            continue
+
+        if ask_yes_no(f"Update {component_name}?"):
+            try:
+                if component["update"]:
+                    print(f"Updating {component_name}...")
+                    for update_command in component["update"][0].get("command", []):
+                        print(f"Running command: {update_command}")
+                        subprocess.run(
+                            update_command,
+                            shell=True,
+                            cwd=component["directory"],
+                            check=True,
+                        )
+
+                    # Save installed packages to requirements.txt in the component directory
+                    requirements_file = os.path.join(
+                        component["directory"], "requirements.txt"
+                    )
+                    with open(requirements_file, "w", encoding="utf-8") as f:
+                        if platform.system() == "Windows":
+                            subprocess.run(
+                                ["pip", "freeze"],
+                                stdout=f,
+                                stderr=subprocess.PIPE,
+                                text=True,
+                                check=True,
+                            )
+                        else:
+                            subprocess.run(
+                                ["pip", "freeze"],
+                                stdout=f,
+                                stderr=subprocess.PIPE,
+                                text=True,
+                                check=True,
+                            )
+
+                    print(f"{component_name} updated successfully.")
+                else:
+                    print(
+                        f"No update commands specified for {component_name}. Skipping..."
+                    )
+            except subprocess.CalledProcessError as e:
+                print(Colors.RED + f"Error updating {component_name}: {e}" + Colors.END)
 
 
 def build_components():

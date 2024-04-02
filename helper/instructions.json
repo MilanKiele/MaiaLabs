@@ -24,6 +24,13 @@
         "deploy": [
             "npm run build",
             "npm run start"
+        ],
+        "update": [
+            {
+                "command": [
+                    "npm update"
+                ]
+            }
         ]
     },
     "web-test": {
@@ -51,6 +58,87 @@
         "deploy": [
             "npm run build",
             "npm run start"
+        ],
+        "update": [
+            {
+                "command": [
+                    "npm update"
+                ]
+            }
+        ]
+    },
+    "python-test": {
+        "directory": "python-test/",
+        "run": [
+            "python test.py"
+        ],
+        "build": [],
+        "install": [
+            {
+                "command": [
+                    "python -m venv venv"
+                ]
+            },
+            {
+                "command": [
+                    "venv\\Scripts\\activate"
+                ],
+                "platform": "windows"
+            },
+            {
+                "command": [
+                    "source venv/bin/activate"
+                ],
+                "platform": "linux"
+            },
+            {
+                "command": [
+                    "pip install --upgrade pip"
+                ]
+            },
+            {
+                "command": [
+                    "pip install -r requirements.txt"
+                ]
+            },
+            {
+                "command": [
+                    "deactivate"
+                ]
+            }
+        ],
+        "test": [],
+        "deploy": [
+            "python test.py"
+        ],
+        "update": [
+            {
+                "command": [
+                    "venv\\Scripts\\activate"
+                ],
+                "platform": "windows"
+            },
+            {
+                "command": [
+                    "source venv/bin/activate"
+                ],
+                "platform": "linux"
+            },
+            {
+                "command": [
+                    "pip freeze > requirements.txt"
+                ]
+            },
+            {
+                "command": [
+                    "pip install --upgrade pip"
+                ]
+            },
+            {
+                "command": [
+                    "deactivate"
+                ]
+            }
         ]
     }
 }

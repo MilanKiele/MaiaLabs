@@ -33,16 +33,43 @@ def say_hello():
 @app.route("/translate", methods=["POST"])
 def translate():
     """
-    Translates the received data.
+    Translates an audio.
     """
-    print("Request received")
-    data = request.get_json()
-    if "voice" in data:
-        try:
-            return jsonify({"voice": "received"})
-        except Exception as e:  # pylint: disable=broad-except
-            error_message = str(e)
-            return jsonify({"error": error_message}), 500
+
+    try:
+        # Get data from the request
+        data = request.get_json()
+
+        # Check if 'voice' key exists in the received data
+        if "voice" not in data:
+            return jsonify({"error": "Voice data is required"}), 400
+
+        voice_data = data["voice"]
+
+        # Optional: Get format, if provided
+        voice_format = data.get("format")
+
+        # Get current language
+        current_language = data.get("currentLanguage")
+
+        # Get wanted languages
+        wanted_languages = data.get("wantedLanguages")
+        if wanted_languages is None:
+            return jsonify({"error": "Wanted languages are required"}), 400
+
+        # Your translation logic here
+        # This is a placeholder response
+        translation_result = {
+            "voice_audio": voice_data,
+            "voice_format": voice_format,
+            "current_language": current_language,
+            "wanted_languages": wanted_languages,
+        }
+
+        return jsonify(translation_result), 200
+
+    except Exception as e:  # pylint: disable=broad-except
+        return jsonify({"error": str(e)}), 500
 
 
 if __name__ == "__main__":

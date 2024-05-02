@@ -1,6 +1,6 @@
-# MaiLabs
+# MaiaLabs
 
-MaiLabs offers a suite of advanced AI tools designed to enhance efficiency across various tasks.
+MaiaLabs offers a suite of advanced AI tools designed to enhance efficiency across various tasks.
 
 **Speaking AI:**
 

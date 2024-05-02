@@ -55,11 +55,11 @@ export const emailTemplate = `
 <body>
     <div class="container">
         <header>
-            <h1>MaiLabs</h1>
+            <h1>MaiaLabs</h1>
         </header>
         <main>{content}</main>
         <footer>
-            <p>&copy; 2024 MaiLabs. All rights reserved.</p>
+            <p>&copy; 2024 MaiaLabs. All rights reserved.</p>
         </footer>
     </div>
 </body>

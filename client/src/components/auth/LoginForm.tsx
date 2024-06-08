@@ -60,7 +60,7 @@ const LoginForm = () => {
 
   return (
     <FormWrapper>
-      <h1 className="mb-2">Login</h1>
+      <h1 className="mb-2 w-full max-w-[1920px]">Login</h1>
       <div className="flex flex-row w-full py-2 gap-2">
         <OAuthLogin provider={"github"} />
         <OAuthLogin provider={"google"} />

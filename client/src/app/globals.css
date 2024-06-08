@@ -7,15 +7,43 @@ Description: Main CSS configuration
 @tailwind components;
 @tailwind utilities;
 
+/* ________________________________________________ Root Colors */
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --background: rgb(227 228 240);
+  --foreground-rgb: rgb(255, 255, 255);
+
+  --primary: black;
+  --primary-unselected: #525252;
+  --primary-selected: #0066aa;
+  --secondary: #252525;
+  --secondary-unselected: #808080;
+  --primary-selected: #0066aa;
+
+  --accent-1: #B3E0FF;
+  --accent-2: #69b8ed;
+  --accent-3: #00B4D8;
+  --accent-4: #0d324a;
+
+  --border: #0b1015;
+  --border: #2c2c2c;
+
+  --input: black;
+  --radius: 4px;
+
+  --popover: #000000;
+  --popover-foreground: #3b3b3b;
+
+  --card: #181818;
+  --card-foreground: #ADB7BE;
+
+  --muted: #3b3b3b;
+  --muted-foreground: #c4c4c4;
 }
 
+/* ________________________________________________  Body*/
 body {
-  color: black;
-  background-color: white;
+  color: var(--primary);
+  background: var(--background);
   padding: 0;
   margin: 0;
   width: 100%;
@@ -23,8 +51,86 @@ body {
   min-height: 100vh;
 }
 
+main {
+  height: 100%;
+  min-height: 80vh;
+  width: 100%;
+}
+
+/* ________________________________________________  Layers */
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+}
+
+/* ________________________________________________  Default Selection */
+::selection {
+  background-color: black;
+  color: white;
+}
+
+.selection-underline {
+  color: var(--primary-unselected);
+}
+
+.selection-underline:hover {
+  color: var(--primary-selected);
+  text-decoration: underline;
+}
+
+.primary-selection {
+  color: var(--primary-unselected);
+}
+
+.primary-selection:hover {
+  color: var(--primary-selected);
+}
+
+/* ________________________________________________ Text Sizes */
+h1 {
+  font-size: 2.5rem;
+  font-weight: 600;
+}
+
+.header {
+  font-size: 2.5em;
+}
+
+.dominant {
+  font-size: 1.5em;
+}
+
+.base {
+  font-size: 1.2em;
+}
+
+.small {
+  font-size: 0.875em;
+}
+
+/* ________________________________________________ Change between Mobile / Desktop */
+
+.canvas-desktop {
+  display: none;
+  /* Initially hide the menu */
+}
+
+@media (min-width: 1260px) {
+  .canvas-desktop {
+    display: block;
+    /* Show the menu when the viewport width is larger than 1260px */
+  }
+}
+
+.canvas-mobile {
+  display: block;
+  /* Initially hide the menu */
+}
+
+@media (min-width: 1260px) {
+  .canvas-mobile {
+    display: none;
+    /* Show the menu when the viewport width is larger than 1260px */
   }
 }

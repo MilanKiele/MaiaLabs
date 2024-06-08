@@ -13,7 +13,9 @@ const AuthSettings = async () => {
   return (
     <FormWrapper>
       <h1>Settings Page</h1>
-      <pre>{JSON.stringify(session, null, 2)}</pre>
+      <div className="w-full flex overflow-x-auto">
+        <pre>{JSON.stringify(session, null, 2)}</pre>
+      </div>
       <SignOutButton />
     </FormWrapper>
   );

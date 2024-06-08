@@ -3,6 +3,11 @@ File: utils/auth.ts
 Description: Retrievign Auth Data from a database
 */
 
+// ___________________________________________________________________________
+// Quick consts
+
+export const redirectLoginPage = "/auth/login";
+
 // Components
 import prisma from "@/lib/prisma";
 

@@ -5,7 +5,7 @@ Description: This is the landing page for the application.
 
 export default function HomePage() {
   return (
-    <main className="">
+    <main className="home-page">
       <>Home Page</>
     </main>
   );

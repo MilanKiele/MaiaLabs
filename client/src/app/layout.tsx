@@ -8,11 +8,12 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 
 import AuthProvider from "@/context/AuthProvider";
+import Navbar from "@/components/base/Navbar";
+import Footer from "@/components/base/Footer";
 
 // Font Inter
 const inter = Inter({ subsets: ["latin"] });
 
-// Metadate
 export const metadata: Metadata = {
   title: "Authentication App",
   description: "Authentication App Template for Next.js",
@@ -23,7 +24,6 @@ export const metadata: Metadata = {
   // manifest: "/manifest.json",
 };
 
-// Viewport
 export const viewport: Viewport = {
   themeColor: "#0b1015",
   width: "device-width",
@@ -39,7 +39,13 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <AuthProvider>
-        <body className={inter.className}>{children}</body>
+        <body className={inter.className}>
+          <div className="p-2 m-0 w-full h-full min-h-[100vh] flex flex-col justify-between">
+            <Navbar />
+            {children}
+            <Footer />
+          </div>
+        </body>
       </AuthProvider>
     </html>
   );

@@ -4,7 +4,7 @@ Description: Defines route access levels and redirects
 */
 
 // Public Routes without Auth
-export const publicRoutes = ["/"];
+export const publicRoutes = ["/", "/legal"];
 
 // Auth Routes, need to be available all time
 export const authRoutes = [
